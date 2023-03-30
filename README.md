@@ -15,7 +15,7 @@
 - `x86_64` are supported too.
 - `#![no_std]`
 
-## Example: If your code is correctly controlled by alignment
+## Example 1: If your code is correctly controlled by alignment
 First, add the following to `Cargo.toml`:
 
 ```
@@ -36,6 +36,18 @@ Second, enclose your test code with `x86_alignment_check()` as follows:
 ```
 
 Finally execute `cargo test`
+
+## Example 2: call_onece style
+```rust
+    let val = x86_alignment_check::call_once(|| {
+        // processing anythings
+        // return value for assertion
+        1
+    });
+    assert_eq!(val, 1);
+```
+For now, assertions such as `assert_eq!()` cannot be included inside `FnOnce`,
+because of the rust runtime bug.
 
 
 # Changelogs
