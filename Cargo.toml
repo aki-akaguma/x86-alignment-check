@@ -1,0 +1,14 @@
+[package]
+name = "x86-alignment-check"
+version = "0.1.0"
+edition = "2021"
+authors = ["aki <aki.akaguma@hotmail.com>"]
+description = "x86 aligment check flag manipulation"
+keywords = ["x86", "aligment", "eflags"]
+categories = ["no-std"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+rust-version = "1.56.0"
+repository = "https://github.com/aki-akaguma/x86-alignment-check"
+
+[dependencies]
