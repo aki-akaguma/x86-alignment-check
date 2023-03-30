@@ -14,14 +14,28 @@
 - set `ac` flag bit into ON, its included `eflags` of `x86`.
 - `x86_64` are supported too.
 
-## Example
+## Example: If your code is correctly controlled by alignment
+First, add the following to `Cargo.toml`:
+
+```
+[target.'cfg(any(target_arch = "x86_64", target_arch = "x86"))'.dev-dependencies]
+x86-alignment-check = "*"
+```
+
+Second, enclose your test code with `x86_alighment_check()` as follows:
+
 ```rust
     use x86_alignment_check::x86_alighment_check;
     //
     let old_flag = x86_alighment_check(true);
-    // processing anythings, a bus error may occur.
+    //
+    // here your test codes, processing anythings, a bus error may occur.
+    //
     let _ = x86_alighment_check(old_flag);
 ```
+
+Finally execute `cargo test`
+
 
 # Changelogs
 
