@@ -44,7 +44,7 @@ at your option.
 [crate-link]: https://crates.io/crates/x86-alignment-check
 [docs-image]: https://docs.rs/x86-alignment-check/badge.svg
 [docs-link]: https://docs.rs/x86-alignment-check/
-[rustc-image]: https://img.shields.io/badge/rustc-1.56+-blue.svg
+[rustc-image]: https://img.shields.io/badge/rustc-1.59+-blue.svg
 [license-image]: https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg
 [test-ubuntu-image]: https://github.com/aki-akaguma/x86-alignment-check/actions/workflows/test-ubuntu.yml/badge.svg
 [test-ubuntu-link]: https://github.com/aki-akaguma/x86-alignment-check/actions/workflows/test-ubuntu.yml
