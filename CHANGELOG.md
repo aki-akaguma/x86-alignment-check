@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * doc comment
 
 ### Fixed
+* incorrect return value: `__read_eflags()`
 * minimum support `1.59.0` for `core::arch::asm!()`
 
 

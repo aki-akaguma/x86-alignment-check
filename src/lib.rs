@@ -4,6 +4,7 @@
 # Features
 - set `ac` flag bit into ON, its included `eflags` of `x86`.
 - `x86_64` are supported too.
+- `#![no_std]`
 
 # Example: If your code is correctly controlled by alignment
 First, add the following to `Cargo.toml`:
@@ -29,8 +30,6 @@ Finally execute `cargo test`
 
 */
 #![no_std]
-use core::sync::atomic::AtomicBool;
-use core::sync::atomic::Ordering;
 
 /// alignment check flag manipulation
 #[cfg(any(target_arch = "x86_64", target_arch = "x86"))]
@@ -43,13 +42,8 @@ pub fn x86_alighment_check(b: bool) -> bool {
     };
     unsafe { __write_eflags(new_eflags) };
     //
-    let old_ac = unsafe { AC_ATOM.load(Ordering::Relaxed) };
-    unsafe { AC_ATOM.store(b, Ordering::Relaxed) };
-    //
-    old_ac
+    (old_eflags & EFLAGS_AC_BIT) != 0
 }
-
-static mut AC_ATOM: AtomicBool = AtomicBool::new(false);
 
 #[cfg(target_arch = "x86")]
 const EFLAGS_AC_BIT: u32 = 1 << 18; // 0x0004_0000
@@ -60,8 +54,8 @@ const EFLAGS_AC_BIT: u64 = 1 << 18; // 0x0004_0000
 #[cfg(target_arch = "x86")]
 #[inline(always)]
 unsafe fn __read_eflags() -> u32 {
-    let eflags: u32 = 0;
-    core::arch::asm!("pushfd; pop {eflags:e}", eflags = out(reg) _);
+    let mut eflags: u32;
+    core::arch::asm!("pushfd; pop {eflags:e}", eflags = out(reg) eflags);
     eflags
 }
 
@@ -74,8 +68,8 @@ unsafe fn __write_eflags(eflags: u32) {
 #[cfg(target_arch = "x86_64")]
 #[inline(always)]
 unsafe fn __read_eflags() -> u64 {
-    let rflags: u64 = 0;
-    core::arch::asm!("pushfq; pop {rflags}", rflags = out(reg) _);
+    let mut rflags: u64;
+    core::arch::asm!("pushfq; pop {rflags}", rflags = out(reg) rflags);
     rflags
 }
 
@@ -98,16 +92,18 @@ mod tests {
         let old_1 = x86_alighment_check(true);
         let old_2 = x86_alighment_check(false);
         let old_3 = x86_alighment_check(true);
-        let _old_4 = x86_alighment_check(old_0);
+        let old_4 = x86_alighment_check(false);
+        let _old_5 = x86_alighment_check(old_0);
         //
         assert!(old_1);
         assert!(old_2);
         assert!(!old_3);
+        assert!(old_4);
     }
     #[test]
     #[ignore]
     fn it_works_1() {
-        let buf = [0_u8;100];
+        let buf = [0_u8; 100];
         //
         let _old_0 = x86_alighment_check(true);
         {

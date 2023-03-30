@@ -13,6 +13,7 @@
 ## Features
 - set `ac` flag bit into ON, its included `eflags` of `x86`.
 - `x86_64` are supported too.
+- `#![no_std]`
 
 ## Example: If your code is correctly controlled by alignment
 First, add the following to `Cargo.toml`:

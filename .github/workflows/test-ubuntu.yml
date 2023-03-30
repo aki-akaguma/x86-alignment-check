@@ -28,7 +28,7 @@ jobs:
         with:
           toolchain: ${{matrix.rust}}
           components: rust-src
-      - run: cargo test
+      - run: make test
 
   build:
     name: Build rust ${{matrix.rust}}
