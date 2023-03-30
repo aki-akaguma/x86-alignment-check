@@ -14,16 +14,16 @@ First, add the following to `Cargo.toml`:
 x86-alignment-check = "*"
 ```
 
-Second, enclose your test code with `x86_alighment_check()` as follows:
+Second, enclose your test code with `x86_alignment_check()` as follows:
 
 ```rust
-    use x86_alignment_check::x86_alighment_check;
+    use x86_alignment_check::x86_alignment_check;
     //
-    let old_flag = x86_alighment_check(true);
+    let old_flag = x86_alignment_check(true);
     //
     // here your test codes, processing anythings, a bus error may occur.
     //
-    let _ = x86_alighment_check(old_flag);
+    let _ = x86_alignment_check(old_flag);
 ```
 
 Finally execute `cargo test`
@@ -33,7 +33,7 @@ Finally execute `cargo test`
 
 /// alignment check flag manipulation
 #[cfg(any(target_arch = "x86_64", target_arch = "x86"))]
-pub fn x86_alighment_check(b: bool) -> bool {
+pub fn x86_alignment_check(b: bool) -> bool {
     let old_eflags = unsafe { __read_eflags() };
     let new_eflags = if b {
         old_eflags | EFLAGS_AC_BIT
@@ -88,12 +88,12 @@ mod tests {
 
     #[test]
     fn it_works_0() {
-        let old_0 = x86_alighment_check(true);
-        let old_1 = x86_alighment_check(true);
-        let old_2 = x86_alighment_check(false);
-        let old_3 = x86_alighment_check(true);
-        let old_4 = x86_alighment_check(false);
-        let _old_5 = x86_alighment_check(old_0);
+        let old_0 = x86_alignment_check(true);
+        let old_1 = x86_alignment_check(true);
+        let old_2 = x86_alignment_check(false);
+        let old_3 = x86_alignment_check(true);
+        let old_4 = x86_alignment_check(false);
+        let _old_5 = x86_alignment_check(old_0);
         //
         assert!(old_1);
         assert!(old_2);
@@ -105,7 +105,7 @@ mod tests {
     fn it_works_1() {
         let buf = [0_u8; 100];
         //
-        let _old_0 = x86_alighment_check(true);
+        let _old_0 = x86_alignment_check(true);
         {
             let ptr = buf.as_ptr();
             let ptr = unsafe { ptr.add(3) };

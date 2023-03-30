@@ -23,16 +23,16 @@ First, add the following to `Cargo.toml`:
 x86-alignment-check = "*"
 ```
 
-Second, enclose your test code with `x86_alighment_check()` as follows:
+Second, enclose your test code with `x86_alignment_check()` as follows:
 
 ```rust
-    use x86_alignment_check::x86_alighment_check;
+    use x86_alignment_check::x86_alignment_check;
     //
-    let old_flag = x86_alighment_check(true);
+    let old_flag = x86_alignment_check(true);
     //
     // here your test codes, processing anythings, a bus error may occur.
     //
-    let _ = x86_alighment_check(old_flag);
+    let _ = x86_alignment_check(old_flag);
 ```
 
 Finally execute `cargo test`

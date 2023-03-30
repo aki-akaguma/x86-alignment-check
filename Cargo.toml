@@ -1,6 +1,6 @@
 [package]
 name = "x86-alignment-check"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["aki <aki.akaguma@hotmail.com>"]
 description = "x86 aligment check flag manipulation"
