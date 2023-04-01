@@ -28,9 +28,10 @@ Second, enclose your test code with `x86_alignment_check()` as follows:
 
 Finally execute `cargo test`
 
-# Example 2: call_onece style
+# Example 2: call_once style
 ```rust
-    let val = x86_alignment_check::call_once(|| {
+    let val = x86_alignment_check::ac_call_once(|| {
+        // here is alignment check
         // processing anythings
         // return value for assertion
         1
@@ -39,6 +40,17 @@ Finally execute `cargo test`
 ```
 For now, assertions such as `assert_eq!()` cannot be included inside `FnOnce`,
 because of the rust runtime bug.
+
+# Example 3: call_once style, but not alignment check
+```rust
+    let val = x86_alignment_check::no_ac_call_once(|| {
+        // here is not alignment check
+        // processing anythings
+        // return value for assertion
+        1
+    });
+    assert_eq!(val, 1);
+```
 
 */
 #![no_std]
@@ -92,11 +104,22 @@ unsafe fn __write_eflags(rflags: u64) {
 }
 
 /// execute under alignment check
-pub fn call_once<F, T>(f: F) -> T
+pub fn ac_call_once<F, T>(f: F) -> T
 where
     F: FnOnce() -> T,
 {
     let old = x86_alignment_check(true);
+    let r = f();
+    let _ = x86_alignment_check(old);
+    r
+}
+
+/// execute under no alignment check
+pub fn no_ac_call_once<F, T>(f: F) -> T
+where
+    F: FnOnce() -> T,
+{
+    let old = x86_alignment_check(false);
     let r = f();
     let _ = x86_alignment_check(old);
     r
@@ -125,8 +148,30 @@ mod tests {
     }
     #[test]
     fn it_works_1() {
-        let val = call_once(|| 1);
+        let val = ac_call_once(|| 1);
         assert_eq!(val, 1);
+    }
+    #[test]
+    fn it_works_2() {
+        let val = no_ac_call_once(|| 1);
+        assert_eq!(val, 1);
+    }
+    #[test]
+    fn it_works_3() {
+        let buf = [0_u8; 100];
+        //
+        let val = ac_call_once(|| {
+            let val = no_ac_call_once(|| {
+                let ptr = buf.as_ptr();
+                let ptr = unsafe { ptr.add(3) };
+                // next should "(signal: 7, SIGBUS: access to undefined memory)"
+                // under alignment check, but here is not alignment check
+                let _v: u32 = unsafe { *(ptr as *const u32) };
+                1
+            });
+            val + 1
+        });
+        assert_eq!(val, 2);
     }
     #[test]
     #[ignore]

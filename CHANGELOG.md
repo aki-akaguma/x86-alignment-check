@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.1.4] (2023-04-01)
+### Added
+* `no_ac_call_once()`
+
+### Changed
+* rename `call_once()` to `ac_call_once()`
+
 ## [0.1.3] (2023-03-30)
 ### Added
 * `call_once()`
@@ -27,7 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] (2023-03-30)
 * first commit
 
-[Unreleased]: https://github.com/aki-akaguma/x86-alignment-check/compare/v0.1.3..HEAD
+[Unreleased]: https://github.com/aki-akaguma/x86-alignment-check/compare/v0.1.4..HEAD
+[0.1.4]: https://github.com/aki-akaguma/x86-alignment-check/compare/v0.1.3..v0.1.4
 [0.1.3]: https://github.com/aki-akaguma/x86-alignment-check/compare/v0.1.2..v0.1.3
 [0.1.2]: https://github.com/aki-akaguma/x86-alignment-check/compare/v0.1.1..v0.1.2
 [0.1.1]: https://github.com/aki-akaguma/x86-alignment-check/compare/v0.1.0..v0.1.1
