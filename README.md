@@ -37,9 +37,10 @@ Second, enclose your test code with `x86_alignment_check()` as follows:
 
 Finally execute `cargo test`
 
-## Example 2: call_onece style
+## Example 2: call_once style
 ```rust
-    let val = x86_alignment_check::call_once(|| {
+    let val = x86_alignment_check::ac_call_once(|| {
+        // here is alignment check
         // processing anythings
         // return value for assertion
         1
@@ -48,6 +49,17 @@ Finally execute `cargo test`
 ```
 For now, assertions such as `assert_eq!()` cannot be included inside `FnOnce`,
 because of the rust runtime bug.
+
+## Example 3: call_once style, but not alignment check
+```rust
+    let val = x86_alignment_check::no_ac_call_once(|| {
+        // here is not alignment check
+        // processing anythings
+        // return value for assertion
+        1
+    });
+    assert_eq!(val, 1);
+```
 
 
 # Changelogs

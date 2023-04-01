@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.1.5] (2023-04-01)
+### Added
+* example into `README.md`
+
 ## [0.1.4] (2023-04-01)
 ### Added
 * `no_ac_call_once()`
