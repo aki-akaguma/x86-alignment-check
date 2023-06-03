@@ -166,7 +166,7 @@ mod tests {
                 let ptr = unsafe { ptr.add(3) };
                 // next should "(signal: 7, SIGBUS: access to undefined memory)"
                 // under alignment check, but here is not alignment check
-                let _v: u32 = unsafe { *(ptr as *const u32) };
+                let _v: u32 = unsafe { (ptr as *const u32).read() };
                 1
             });
             val + 1
@@ -183,7 +183,7 @@ mod tests {
             let ptr = buf.as_ptr();
             let ptr = unsafe { ptr.add(3) };
             // next should "(signal: 7, SIGBUS: access to undefined memory)"
-            let _v: u32 = unsafe { *(ptr as *const u32) };
+            let _v: u32 = unsafe { (ptr as *const u32).read() };
         }
     }
 }
