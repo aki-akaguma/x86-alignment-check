@@ -93,14 +93,18 @@ unsafe fn __write_eflags(eflags: u32) {
 #[inline(always)]
 unsafe fn __read_eflags() -> u64 {
     let mut rflags: u64;
-    core::arch::asm!("pushfq; pop {rflags}", rflags = out(reg) rflags);
+    unsafe {
+        core::arch::asm!("pushfq; pop {rflags}", rflags = out(reg) rflags);
+    }
     rflags
 }
 
 #[cfg(target_arch = "x86_64")]
 #[inline(always)]
 unsafe fn __write_eflags(rflags: u64) {
-    core::arch::asm!("push {rflags}; popfq", rflags = in(reg) rflags);
+    unsafe {
+        core::arch::asm!("push {rflags}; popfq", rflags = in(reg) rflags);
+    }
 }
 
 /// execute under alignment check
