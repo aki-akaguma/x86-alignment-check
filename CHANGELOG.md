@@ -1,48 +1,47 @@
 # Changelog: x86-alignment-check
-
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Added
-* `specs`
+- Include project specifications in `specs/`
 
-
-## [0.1.6] (2023-06-03)
+## [0.1.6] - 2023-06-03
 ### Fixed
-* test bug: 'tests::it_works_3' panicked at 'misaligned pointer dereference: address must be a multiple of 0x4 but is 0x7f0c285eb573', src/lib.rs:169:40
+- Resolve panic in `tests::it_works_3` caused by misaligned pointer dereference
 
-## [0.1.5] (2023-04-01)
+## [0.1.5] - 2023-04-01
 ### Added
-* example into `README.md`
+- Provide example usage in `README.md`
 
-## [0.1.4] (2023-04-01)
+## [0.1.4] - 2023-04-01
 ### Added
-* `no_ac_call_once()`
+- Introduce `no_ac_call_once()` function
 
 ### Changed
-* rename `call_once()` to `ac_call_once()`
+- Rename `call_once()` to `ac_call_once()`
 
-## [0.1.3] (2023-03-30)
+## [0.1.3] - 2023-03-30
 ### Added
-* `call_once()`
+- Provide `call_once()` function
 
-## [0.1.2] (2023-03-30)
+## [0.1.2] - 2023-03-30
 ### Fixed
-* typo: `x86_alignment_check()`
+- Correct typo in `x86_alignment_check()`
 
-## [0.1.1] (2023-03-30)
+## [0.1.1] - 2023-03-30
 ### Added
-* doc comment
+- Provide documentation comments
 
 ### Fixed
-* incorrect return value: `__read_eflags()`
-* minimum support `1.59.0` for `core::arch::asm!()`
+- Correct return value in `__read_eflags()`
+- Update requirement for Rust 1.59.0 to support `core::arch::asm!`
 
-## [0.1.0] (2023-03-30)
-* first commit
+## [0.1.0] - 2023-03-30
+### Added
+- Release initial version
 
 [Unreleased]: https://github.com/aki-akaguma/x86-alignment-check/compare/v0.1.6..HEAD
 [0.1.6]: https://github.com/aki-akaguma/x86-alignment-check/compare/v0.1.5..v0.1.6
